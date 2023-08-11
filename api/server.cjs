@@ -4,7 +4,7 @@ const cors = require('cors');
 const app = express();
 const PORT = 3001;
 app.use(cors());
-const API_KEY = "pK4eMAID3860vCrhl6mGQeHds2FvDYqo7eIcmcbv4bTzp5EPBQBoP0SpEG8zb8G4";
+const API_KEY = "API_KEY";
 
 app.get('/currencies', async (req, res) => {
     try {
