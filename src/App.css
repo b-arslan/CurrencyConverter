@@ -1,62 +1,106 @@
 * {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+ 
+::-webkit-scrollbar {
+    display: none;
 }
 
+
+
 body {
-  background: #242424;
-  overflow: hidden;
+    background: #242424;
+    -ms-overflow-style: none;  /* Internet Explorer ve Edge için */
+    scrollbar-width: none; 
 }
 
 .container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  border: 1px solid #dadada;
-  border-radius: 30px;
-  background: #f4f4f4;  
-  width: 600px;
-  height: 350px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid #dadada;
+    border-radius: 30px;
+    background: #f4f4f4;
+    width: 300px;
+    height: 400px;
 }
-
+  
 .main {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-evenly;
-  align-items: center;
-  gap: 1rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;  /* space-evenly'den center'a değişti */
+    align-items: center;
+    gap: 1rem;
 }
 
 .content {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 2rem;
-
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 2rem;
+    flex-wrap: wrap;  /* Eklenen Kod */
 }
 
-.select-field{
-  display: grid;
-  place-items: center;
+.select-field {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+}
+
+input {
+    width: 100%;
+    max-width: 200px;
+    height: 30px;
+    border: 1px solid #242424;
 }
 
 .select-field > label {
-  padding: 10px;
-  font-size: 24px;
-  font-family: 'Times New Roman', Times, serif;
+    padding: 10px;
+    font-size: 24px;
+    font-family: 'Times New Roman', Times, serif;
 }
 
 .header > h1 {
-  font-size: 48px;
-  font-family: 'Times New Roman', Times, serif;
-  padding-bottom: 50px;
+    font-size: 2rem;
+    font-family: 'Times New Roman', Times, serif;
+    padding-bottom: 20px;
 }
 
 .converted-price {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.equal > p.default-arrow {
+    display: block;
+}
+
+.equal > p.responsive-arrow {
+    display: none;
+}
+
+/* Media Queries */
+@media (min-width: 768px) {
+    .content {
+        flex-direction: row;
+    }
+
+    .header > h1 {
+        font-size: 48px;
+        padding-bottom: 50px;
+    }
+    .equal > p.default-arrow {
+        display: none;
+    }
+
+    .equal > p.responsive-arrow {
+        display: block;
+    }
 }

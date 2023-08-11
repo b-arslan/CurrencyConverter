@@ -4,13 +4,16 @@ function Converter() {
     const [currencies, setCurrencies] = useState([]);
     const [selectedCurrency1, setSelectedCurrency1] = useState("");
     const [selectedCurrency2, setSelectedCurrency2] = useState("");
+    const [inputValue, setInputValue] = useState(0);
+    const [convertedValue, setConvertedValue] = useState(0);
 
     useEffect(() => {
         const fetchData = async () => {
             try {
                 const response = await fetch("http://localhost:3001/currencies");
                 const data = await response.json();
-                setCurrencies(data);
+                const filteredData = data.filter(item => item.symbol.endsWith('USDT'));
+                setCurrencies(filteredData);
             } catch (error) {
                 console.error("Error fetching the currencies:", error);
             }
@@ -18,6 +21,16 @@ function Converter() {
 
         fetchData();
     }, []);
+
+    useEffect(() => {
+        if (selectedCurrency1 && selectedCurrency2) {
+            const rate1 = currencies.find(currency => currency.symbol === selectedCurrency1).price;
+            const rate2 = currencies.find(currency => currency.symbol === selectedCurrency2).price;
+
+            const result = (inputValue * rate1) / rate2;
+            setConvertedValue(result);
+        }
+    }, [selectedCurrency1, selectedCurrency2, inputValue, currencies]);
 
     return ( 
         <div className="main">
@@ -39,9 +52,17 @@ function Converter() {
                             ))}
                         </select>
                     </div>
+                    <div>
+                        <input 
+                            type='number' 
+                            value={inputValue}
+                            onChange={e => setInputValue(e.target.value)}
+                        />
+                    </div>
                 </div>
                 <div className="equal">
-                    <p>&#10140;</p>
+                    <p className="default-arrow">&#129047;</p>
+                    <p className="responsive-arrow">&#10140;</p>
                 </div>
                 <div className="select-field">
                     <div className="select">
@@ -57,11 +78,10 @@ function Converter() {
                             ))}
                         </select>
                     </div>
+                    <div>
+                        <input value={convertedValue.toFixed(4)} disabled/>
+                    </div>
                 </div>
-            </div>
-            <div className="converted-price">
-                <label>Converted Price</label>
-                <input disabled/>
             </div>
         </div>
     );
