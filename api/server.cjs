@@ -1,10 +1,11 @@
 const express = require('express');
 const axios = require('axios');
 const cors = require('cors');
+require('dotenv').config();
 const app = express();
 const PORT = 3001;
 app.use(cors());
-const API_KEY = "API_KEY";
+const API_KEY = `${process.env.API_KEY}`;
 
 app.get('/currencies', async (req, res) => {
     try {
